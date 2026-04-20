@@ -570,14 +570,20 @@ Tag LLM requests for cost tracking and usage analytics.
 
 Set spending limits per user or team to control LLM usage costs.
 
-| Parameter                            | Type   | Default     | Description                                                                                                                                                                                                 |
-| ------------------------------------ | ------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `DEFAULT_SOFT_BUDGET_LIMIT`          | float  | `200`       | Soft limit in USD triggering warnings before hard cutoff                                                                                                                                                    |
-| `DEFAULT_HARD_BUDGET_LIMIT`          | float  | `500`       | Hard limit in USD completely blocking requests when exceeded                                                                                                                                                |
-| `DEFAULT_BUDGET_DURATION`            | string | `"30d"`     | Budget reset period (e.g., `30d` for monthly, `7d` for weekly)                                                                                                                                              |
-| `DEFAULT_BUDGET_ID`                  | string | `"default"` | Identifier for the default end-user budget in LiteLLM                                                                                                                                                       |
-| `LITELLM_PREMIUM_MODELS_BUDGET_NAME` | string | `""`        | Budget name for premium model spend tracking. When set, enables separate budget attribution for costly models (e.g., `premium_models`). Leave empty to disable.                                             |
-| `LITELLM_PREMIUM_MODELS_ALIASES`     | string | `""`        | Comma-separated list of model name substrings treated as premium (e.g., `opus,o1`). Matched case-insensitively against the requested model name. Required when `LITELLM_PREMIUM_MODELS_BUDGET_NAME` is set. |
+:::warning Deprecated
+`DEFAULT_SOFT_BUDGET_LIMIT`, `DEFAULT_HARD_BUDGET_LIMIT`, `DEFAULT_BUDGET_DURATION`, `DEFAULT_BUDGET_ID`, `LITELLM_PREMIUM_MODELS_BUDGET_NAME`, and `LITELLM_CLI_BUDGET_NAME` are deprecated in 2.23.0.
+
+Replace them with the equivalent `budgets-config.yaml` fields.
+
+See the [Release Notes](../../update/release-notes) for the migration table and [Budget Configuration](../extensions/litellm-proxy/budget-configuration) for full details.
+:::
+
+| Parameter                           | Type    | Default | Description                                                                                                                                                                               |
+| ----------------------------------- | ------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `LLM_PROXY_BUDGET_CHECK_ENABLED`    | boolean | `false` | Enables budget limit checking for LLM proxy requests. When `true`, CodeMie enforces predefined budgets from `budgets-config.yaml`.                                                        |
+| `LLM_PROXY_BUDGET_SYNC_ENABLED`     | boolean | `false` | Syncs predefined budgets from `budgets-config.yaml` into the database on startup. Required for budget enforcement to work.                                                                |
+| `LLM_PROXY_BUDGET_BACKFILL_ENABLED` | boolean | `false` | Backfills user budget assignments from LiteLLM on startup. Ensures existing users are assigned the correct budgets retroactively.                                                         |
+| `LITELLM_PREMIUM_MODELS_ALIASES`    | string  | `""`    | Comma-separated list of model name substrings treated as premium (e.g., `opus,o1`). Matched case-insensitively against the requested model name. Required when premium budget is enabled. |
 
 ### LiteLLM Spend Tracking
 
