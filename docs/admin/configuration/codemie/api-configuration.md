@@ -271,11 +271,12 @@ Configure where and how CodeMie stores uploaded files, attachments, and generate
 
 Configuration for Amazon S3 storage backend (requires `FILES_STORAGE_TYPE=aws`).
 
-| Parameter                     | Type   | Default                    | Description                                                 |
-| ----------------------------- | ------ | -------------------------- | ----------------------------------------------------------- |
-| `AWS_S3_REGION`               | string | `""`                       | S3 bucket region (e.g., `us-east-1`) for low-latency access |
-| `AWS_S3_BUCKET_NAME`          | string | `""`                       | S3 bucket name for user files and attachments               |
-| `CODEMIE_STORAGE_BUCKET_NAME` | string | `"codemie-global-storage"` | Bucket for system-level shared assets and resources         |
+| Parameter                     | Type   | Default                    | Description                                                                                       |
+| ----------------------------- | ------ | -------------------------- | ------------------------------------------------------------------------------------------------- |
+| `AWS_DEFAULT_REGION`          | string | `""`                       | AWS region. Must be set if `AWS_S3_REGION` is not configured                                      |
+| `AWS_S3_REGION`               | string | `AWS_DEFAULT_REGION`       | S3-specific region override. When set, takes priority over `AWS_DEFAULT_REGION` for S3 operations |
+| `AWS_S3_BUCKET_NAME`          | string | `""`                       | S3 bucket name for user files and attachments                                                     |
+| `CODEMIE_STORAGE_BUCKET_NAME` | string | `"codemie-global-storage"` | Bucket for system-level shared assets and resources                                               |
 
 ### Cloud Storage - Azure Blob
 
