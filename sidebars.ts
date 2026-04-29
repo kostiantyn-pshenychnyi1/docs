@@ -285,7 +285,7 @@ const sidebars: SidebarsConfig = {
             'user-guide/codemie-cli/assistants-integration',
             'user-guide/codemie-cli/skills-integration',
             'user-guide/codemie-cli/codemie-claude-skills',
-            'user-guide/codemie-cli/sdk-asset-management',
+            'user-guide/codemie-cli/sdk-cli-reference',
           ],
         },
         {

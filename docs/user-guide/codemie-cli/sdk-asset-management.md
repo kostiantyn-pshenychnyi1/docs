@@ -1,5 +1,5 @@
 ---
-id: sdk-asset-management
+id: sdk-cli-reference
 title: SDK CLI Reference
 sidebar_label: SDK CLI Reference
 sidebar_position: 5
@@ -10,7 +10,7 @@ pagination_next: null
 # SDK CLI Reference
 
 Reference for `codemie sdk` commands. These commands are invoked automatically by the
-[`codemie-sdk` skill](./codemie-claude-skills) when you describe what you need in Claude
+[`codemie-sdk` skill](./codemie-claude-skills.md) when you describe what you need in Claude
 Code, or you can run them directly in the terminal.
 
 ## Common Flags

@@ -4,7 +4,7 @@ title: Claude Code Skills for CodeMie
 sidebar_label: Claude Code Skills
 sidebar_position: 4
 pagination_prev: user-guide/codemie-cli/skills-integration
-pagination_next: user-guide/codemie-cli/sdk-asset-management
+pagination_next: user-guide/codemie-cli/sdk-cli-reference
 ---
 
 import EnterpriseFeature from '@site/src/components/EnterpriseFeature';
@@ -52,7 +52,7 @@ List all project integrations
 ```
 
 For the full list of available commands and fields, see the
-[SDK CLI Reference](./sdk-asset-management).
+[SDK CLI Reference](./sdk-asset-management.md).
 
 ## codemie-analytics
 
