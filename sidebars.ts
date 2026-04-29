@@ -284,6 +284,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'user-guide/codemie-cli/assistants-integration',
             'user-guide/codemie-cli/skills-integration',
+            'user-guide/codemie-cli/sdk-asset-management',
           ],
         },
         {
