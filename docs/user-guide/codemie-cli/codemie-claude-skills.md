@@ -30,12 +30,6 @@ you need in natural language.
 
 - CodeMie CLI installed and configured (`codemie setup` completed)
 
-## Project Selection
-
-Before running any asset management operation, Claude asks which project to use. It
-proposes your default project (based on your account) and lets you confirm or pick a
-different one.
-
 ## codemie-sdk
 
 Manages all CodeMie platform assets via the `codemie sdk` CLI.
