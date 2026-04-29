@@ -1,42 +1,19 @@
 ---
 id: sdk-asset-management
-title: Manage CodeMie Assets from CLI
-sidebar_label: CodeMie Assets Management
-sidebar_position: 4
-pagination_prev: user-guide/codemie-cli/codemie-cli
+title: SDK CLI Reference
+sidebar_label: SDK CLI Reference
+sidebar_position: 5
+pagination_prev: user-guide/codemie-cli/codemie-claude-skills
 pagination_next: null
 ---
 
-import EnterpriseFeature from '@site/src/components/EnterpriseFeature';
+# SDK CLI Reference
 
-# Manage CodeMie Assets from CLI
+Reference for `codemie sdk` commands. These commands are invoked automatically by the
+[`codemie-sdk` skill](./codemie-claude-skills) when you describe what you need in Claude
+Code, or you can run them directly in the terminal.
 
-<EnterpriseFeature />
-
-Claude Code can manage CodeMie platform assets and retrieve analytics data directly from
-your terminal. Two built-in skills handle this: `codemie-sdk` for asset management, and
-`codemie-analytics` for usage data and reports. Both are available automatically when you
-launch Claude Code with `codemie-claude` — no additional setup required.
-
-## Prerequisites
-
-- CodeMie CLI installed and configured (`codemie setup` completed)
-
-Just describe what you need in natural language:
-
-- _"Create an assistant called Code Reviewer in Engineering"_
-- _"List my datasources"_
-- _"Show me the AI adoption leaderboard for Q1"_
-- _"How much has our team spent this month?"_
-
-## Project Selection
-
-Before running any operation, Claude asks which project to use. It proposes your default
-project (based on your account) and lets you confirm or pick a different one.
-
-## Command Reference
-
-### Common Flags
+## Common Flags
 
 | Flag                | Description                                 |
 | ------------------- | ------------------------------------------- |
@@ -374,71 +351,3 @@ projects you have access to.
 codemie sdk users me [--json]    # Your profile: user_id, email, is_admin, applications
 codemie sdk users data [--json]  # Extended user data
 ```
-
-## Analytics
-
-The `codemie-analytics` skill provides access to platform usage data, AI adoption metrics,
-spending, and leaderboard rankings. Just ask Claude in natural language — it fetches the
-data and can generate an HTML report saved to `reports/` in your working directory.
-
-### Leaderboard and AI Champions
-
-Track AI adoption across your organization through a scoring framework with six dimensions:
-platform usage, asset creation, workflow usage, workflow authoring, CLI and agentic
-engineering, and knowledge sharing. Users are ranked into tiers (pioneer, expert, advanced,
-practitioner, newcomer).
-
-```
-Show me the AI adoption leaderboard for Q1 2026
-Who are the top 10 performers this month?
-What's the tier distribution across the organization?
-Show the leaderboard summary — total users and tier counts
-Give me the full champion profile for alice@company.com
-```
-
-### CLI Insights
-
-Analyze how teams use Claude Code — session depth, tool usage, model preferences, top
-repositories, and user classification by behavior type.
-
-```
-Show CLI insights for the last 30 days
-Who are the top CLI users by cost?
-Give me a detailed CLI profile for John_Doe
-What are the usage patterns by hour and weekday?
-```
-
-### Spending and Budget
-
-Monitor platform costs and budget utilization at the user, project, and organization level.
-
-```
-How much has Engineering spent this month?
-Show me per-user spending for the last 30 days
-Are any users close to their budget limits?
-What's my current spend and remaining budget?
-```
-
-### General Usage Analytics
-
-Get summaries of platform activity: conversations, assistant usage, workflow executions,
-tool usage, model breakdown, and engagement patterns.
-
-```
-Give me a platform usage summary for last week
-Which LLM models are used most?
-Show workflow execution analytics
-What tools are used most across the platform?
-```
-
-### HTML Reports
-
-Claude can compile analytics data into a self-contained HTML report saved locally:
-
-```
-Build a leaderboard dashboard for Q1 2026
-Generate a spending report for the last 30 days and save it
-Create an HTML report showing CLI adoption trends
-```
-
-Reports are saved to `reports/<descriptive-name>.html` in your current working directory.
