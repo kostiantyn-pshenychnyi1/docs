@@ -218,11 +218,12 @@ Primary relational database for structured data and transactional operations.
 
 Document store for full-text search, analytics, and unstructured data.
 
-| Parameter          | Type   | Default                   | Description                                        |
-| ------------------ | ------ | ------------------------- | -------------------------------------------------- |
-| `ELASTIC_URL`      | string | `"http://localhost:9200"` | Elasticsearch cluster endpoint URL                 |
-| `ELASTIC_PASSWORD` | string | `""`                      | Password for `elastic` user or configured username |
-| `ELASTIC_USERNAME` | string | `""`                      | Username for Elasticsearch authentication          |
+| Parameter                     | Type    | Default                   | Description                                                                                                                                                                          |
+| ----------------------------- | ------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ELASTIC_URL`                 | string  | `"http://localhost:9200"` | Elasticsearch cluster endpoint URL                                                                                                                                                   |
+| `ELASTIC_PASSWORD`            | string  | `""`                      | Password for `elastic` user or configured username                                                                                                                                   |
+| `ELASTIC_USERNAME`            | string  | `""`                      | Username for Elasticsearch authentication                                                                                                                                            |
+| `ELASTIC_DATASOURCE_REPLICAS` | integer | `1`                       | Number of replica shards for datasource indexes; set to `0` to have only the primary shard for each indexed datasource, reducing total shard usage on clusters with limited capacity |
 
 #### Elasticsearch Indexes
 
@@ -232,7 +233,7 @@ Index names for different data types. Customize to avoid collisions in shared cl
 | ----------------------------------------- | ------------ | -------------------------------------- | -------------------------------------------------------- |
 | `ELASTIC_APPLICATION_INDEX`               | string       | `"applications"`                       | Indexed applications and their metadata                  |
 | `ELASTIC_GIT_REPO_INDEX`                  | string       | `"repositories"`                       | Code repository metadata and indexing status             |
-| `ELASTIC_LOGS_INDEX`                      | string       | `"codemie_infra_logs*"`                | Infrastructure logs pattern for monitoring and debugging |
+| `ELASTIC_LOGS_INDEX`                      | string       | `"logs-codemie-infra*"`                | Infrastructure logs pattern for monitoring and debugging |
 | `FEEDBACK_INDEX_NAME`                     | string       | `"ca_feedback"`                        | User feedback and ratings on AI responses                |
 | `BACKGROUND_TASKS_INDEX`                  | string       | `"background_tasks"`                   | Async task queue and execution status                    |
 | `USER_CONVERSATION_INDEX`                 | string       | `"codemie_raw_user_conversations"`     | Complete conversation history and messages               |
@@ -273,7 +274,7 @@ Configuration for Amazon S3 storage backend (requires `FILES_STORAGE_TYPE=aws`).
 
 | Parameter                     | Type   | Default                    | Description                                                                                       |
 | ----------------------------- | ------ | -------------------------- | ------------------------------------------------------------------------------------------------- |
-| `AWS_DEFAULT_REGION`          | string | `""`                       | AWS region. Must be set if `AWS_S3_REGION` is not configured                                      |
+| `AWS_DEFAULT_REGION`          | string | `""`                       | AWS region. Must be set if `AWS_S3_REGION` or `AWS_KMS_REGION` are not configured                 |
 | `AWS_S3_REGION`               | string | `AWS_DEFAULT_REGION`       | S3-specific region override. When set, takes priority over `AWS_DEFAULT_REGION` for S3 operations |
 | `AWS_S3_BUCKET_NAME`          | string | `""`                       | S3 bucket name for user files and attachments                                                     |
 | `CODEMIE_STORAGE_BUCKET_NAME` | string | `"codemie-global-storage"` | Bucket for system-level shared assets and resources                                               |
@@ -311,10 +312,10 @@ Protect sensitive data at rest using cloud key management services or HashiCorp 
 
 Encrypt secrets and sensitive data using AWS Key Management Service.
 
-| Parameter        | Type   | Default | Description                                            |
-| ---------------- | ------ | ------- | ------------------------------------------------------ |
-| `AWS_KMS_KEY_ID` | string | `""`    | KMS key ID or ARN for encryption/decryption operations |
-| `AWS_KMS_REGION` | string | `""`    | AWS region where KMS key is located                    |
+| Parameter        | Type   | Default              | Description                                                                                         |
+| ---------------- | ------ | -------------------- | --------------------------------------------------------------------------------------------------- |
+| `AWS_KMS_KEY_ID` | string | `""`                 | KMS key ID or ARN for encryption/decryption operations                                              |
+| `AWS_KMS_REGION` | string | `AWS_DEFAULT_REGION` | KMS-specific region override. When set, takes priority over `AWS_DEFAULT_REGION` for KMS operations |
 
 ### Azure Key Vault
 
@@ -381,6 +382,10 @@ Controls whether user roles and project access are read from JWT claims (Keycloa
 or stored in the platform database (Platform-managed mode). See
 [Access Control Overview](../access-control/index.md) for a full comparison.
 
+For step-by-step instructions on enabling Platform-managed mode and migrating existing
+Keycloak users, see
+[Platform-managed Mode Configuration](../access-control/platform-managed-mode-configuration.md).
+
 | Parameter                | Type | Default | Description                                                                                                                                                                                                                          |
 | ------------------------ | ---- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `ENABLE_USER_MANAGEMENT` | bool | `false` | Master switch. `true` enables Platform-managed mode: roles and project membership are stored in the platform DB and managed through the in-app UI. `false` uses Keycloak-managed mode where JWT claims are the authoritative source. |
@@ -398,7 +403,7 @@ database on startup.
 | `KEYCLOAK_ADMIN_URL`           | string | `""`    | Keycloak base URL for admin API access (e.g., `https://keycloak.example.com`).                                                                   |
 | `KEYCLOAK_ADMIN_REALM`         | string | `""`    | Keycloak realm to migrate (e.g., `codemie-prod`).                                                                                                |
 | `KEYCLOAK_ADMIN_CLIENT_ID`     | string | `""`    | Service account client ID with Keycloak admin permissions.                                                                                       |
-| `KEYCLOAK_ADMIN_CLIENT_SECRET` | string | `""`    | Service account client secret. Store in a Kubernetes secret and reference via `valueFrom.secretKeyRef`.                                          |
+| `KEYCLOAK_ADMIN_CLIENT_SECRET` | string | `""`    | Service account client secret.                                                                                                                   |
 
 ---
 

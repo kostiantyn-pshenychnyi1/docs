@@ -14,13 +14,70 @@ This page provides information about updated third-party components and configur
 ---
 
 <details>
+<summary><strong>CodeMie 2.26.0</strong></summary>
+
+**Release Date:** May 12, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.26.0)
+
+<h3>Third-Party Component Updates</h3>
+
+No third-party component updates in this release.
+
+<h3>Configuration Changes</h3>
+
+1. **Update LiteLLM budget env vars** — remove `LITELLM_SPEND_COLLECTOR_SCHEDULE` and set `LLM_PROXY_BUDGET_BACKFILL_ENABLED: "true"`. See [Budget Configuration](../configuration/extensions/litellm-proxy/budget-configuration.md).
+
+2. **One-time reconciliation via `LLM_PROXY_BUDGET_RECONCILIATION_ENABLED`**
+
+   :::warning One-time operation
+   Enable only on a **single API replica**, wait for reconciliation to complete (check pod logs), then disable and scale replicas back.
+   :::
+
+   Steps:
+   1. Scale API to 1 replica.
+   2. Set `LLM_PROXY_BUDGET_RECONCILIATION_ENABLED: "true"`.
+   3. Wait for reconciliation log confirmation.
+   4. Remove or set the variable to `"false"`.
+   5. Scale API replicas back to the desired count.
+
+<h3>Hotfixes</h3>
+
+- **2.26.1** · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.26.1) – May 13, 2026
+
+</details>
+
+<details>
+<summary><strong>CodeMie 2.25.0</strong></summary>
+
+**Release Date:** May 8, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.25.0)
+
+<h3>Third-Party Component Updates</h3>
+
+No third-party component updates in this release.
+
+<h3>Configuration Changes</h3>
+
+No breaking configuration changes were introduced in this release.
+
+<h3>Known Issues</h3>
+
+:::warning Skip to 2.26.0 if using LiteLLM integration
+If your deployment has the **LiteLLM proxy integration enabled**, it is strongly recommended to **skip this version and upgrade directly to CodeMie 2.26.0**.
+
+Version 2.25.0 contains a known issue that causes instability in environments with LiteLLM configured. Upgrading to 2.26.0 resolves this issue.
+:::
+
+</details>
+
+<details>
 <summary><strong>CodeMie 2.24.0</strong></summary>
 
 **Release Date:** April 23, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.24.0)
 
 <h3>Third-Party Component Updates</h3>
 
-No third-party component updates in this release.
+<h4>LiteLLM 1.83.7 (CodeMie 2.24.1)</h4>
+
+Updated from 1.81.0. For details, see the [LiteLLM 1.83.7 Release Notes ↗](https://github.com/BerriAI/litellm/releases/tag/v1.83.7-stable).
 
 <h3>Configuration Changes</h3>
 
@@ -74,6 +131,12 @@ No third-party component updates in this release.
    Generate with: `openssl rand -hex 32`. Store in a secrets manager or Kubernetes Secret.
 
    See [API Configuration](../configuration/codemie/api-configuration.md#inter-process-communication) for full details.
+
+<h3>Hotfixes</h3>
+
+- **2.24.1** – April 29, 2026
+
+  Updated LiteLLM to 1.83.7. For details, see the [LiteLLM 1.83.7 Release Notes ↗](https://github.com/BerriAI/litellm/releases/tag/v1.83.7-stable).
 
 </details>
 
