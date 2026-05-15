@@ -59,6 +59,7 @@ const sidebars: SidebarsConfig = {
               label: 'Organizing and Managing Communication with Assistants',
               collapsed: true,
               items: [
+                'user-guide/assistants/search-chats',
                 'user-guide/assistants/group-chats',
                 'user-guide/assistants/folders-overview',
                 'user-guide/assistants/supported-file-formats-and-csv-handling-in-chat-assistant',
