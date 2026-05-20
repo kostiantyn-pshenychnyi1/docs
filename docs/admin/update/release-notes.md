@@ -14,6 +14,116 @@ This page provides information about updated third-party components and configur
 ---
 
 <details>
+<summary><strong>CodeMie 2.27.0</strong></summary>
+
+**Release Date:** May 18, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.27.0)
+
+<h3>Third-Party Component Updates</h3>
+
+No third-party component updates in this release.
+
+<h3>Configuration Changes</h3>
+
+1. **`USE_POSTGRES` removed from AI/Run CodeMie Backend Helm Chart** — this variable was deprecated and is no longer supported.
+
+   :::tip Configuration housekeeping
+   If your `AI/Run CodeMie Backend` Helm Chart values still contain `USE_POSTGRES`, you can safely remove it.
+   :::
+
+2. **Post-migration cleanup** — if you completed the Platform-Managed Mode migration but haven't yet removed the one-time migration variables, this is a good time to clean them up.
+
+   :::tip Post-migration housekeeping
+   After a successful migration, the following variables are no longer needed and should be removed from your `extraEnv`:
+   - `KEYCLOAK_MIGRATION_ENABLED`
+   - `KEYCLOAK_ADMIN_URL`
+   - `KEYCLOAK_ADMIN_REALM`
+   - `KEYCLOAK_ADMIN_CLIENT_ID`
+   - `KEYCLOAK_ADMIN_CLIENT_SECRET`
+
+   See [Disable migration after the first run](../configuration/access-control/platform-managed-mode-configuration.md#22-disable-migration-after-the-first-run) for the full cleanup steps.
+   :::
+
+3. **`LITELLM_PREMIUM_MODELS_ALIASES` format changed to JSON array** — if you use this variable, update its value from a comma-separated string to a JSON array.
+
+   :::warning Format change required
+   The previous comma-separated format is no longer supported. Update your `extraEnv` before upgrading:
+
+   ```yaml
+   # Before
+   - name: LITELLM_PREMIUM_MODELS_ALIASES
+     value: "opus,o1"
+
+   # After
+   - name: LITELLM_PREMIUM_MODELS_ALIASES
+     value: '["opus", "o1"]'
+   ```
+
+   :::
+
+4. **`LITELLM_PREMIUM_MODELS_BUDGET_NAME` removed** — this variable was deprecated and is no longer supported. Remove it from your `extraEnv` if still present.
+
+   :::tip Configuration housekeeping
+   The budget name is now derived automatically from the `budget_category: premium_models` entry in `budgets-config.yaml`. No replacement variable is needed.
+   :::
+
+</details>
+
+<details>
+<summary><strong>CodeMie 2.26.0</strong></summary>
+
+**Release Date:** May 12, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.26.0)
+
+<h3>Third-Party Component Updates</h3>
+
+No third-party component updates in this release.
+
+<h3>Configuration Changes</h3>
+
+1. **Update LiteLLM budget env vars** — remove `LITELLM_SPEND_COLLECTOR_SCHEDULE` and set `LLM_PROXY_BUDGET_BACKFILL_ENABLED: "true"`. See [Budget Configuration](../configuration/extensions/litellm-proxy/budget-configuration.md).
+
+2. **One-time reconciliation via `LLM_PROXY_BUDGET_RECONCILIATION_ENABLED`**
+
+   :::warning One-time operation
+   Enable only on a **single API replica**, wait for reconciliation to complete (check pod logs), then disable and scale replicas back.
+   :::
+
+   Steps:
+   1. Scale API to 1 replica.
+   2. Set `LLM_PROXY_BUDGET_RECONCILIATION_ENABLED: "true"`.
+   3. Wait for reconciliation log confirmation.
+   4. Remove or set the variable to `"false"`.
+   5. Scale API replicas back to the desired count.
+
+<h3>Hotfixes</h3>
+
+- **2.26.1** · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.26.1) – May 13, 2026
+
+</details>
+
+<details>
+<summary><strong>CodeMie 2.25.0</strong></summary>
+
+**Release Date:** May 8, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.25.0)
+
+<h3>Third-Party Component Updates</h3>
+
+No third-party component updates in this release.
+
+<h3>Configuration Changes</h3>
+
+No breaking configuration changes were introduced in this release.
+
+<h3>Known Issues</h3>
+
+:::warning Skip to 2.26.0 if using LiteLLM integration
+If your deployment has the **LiteLLM proxy integration enabled**, it is strongly recommended to **skip this version and upgrade directly to CodeMie 2.26.0**.
+
+Version 2.25.0 contains a known issue that causes instability in environments with LiteLLM configured. Upgrading to 2.26.0 resolves this issue.
+:::
+
+</details>
+
+<details>
 <summary><strong>CodeMie 2.24.0</strong></summary>
 
 **Release Date:** April 23, 2026 · [GitHub Tag ↗](https://github.com/codemie-ai/codemie/releases/tag/2.24.0)
