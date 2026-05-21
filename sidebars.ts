@@ -674,6 +674,7 @@ const sidebars: SidebarsConfig = {
                 },
                 'admin/configuration/codemie/api-configuration',
                 'admin/configuration/codemie/platform-administration',
+                'admin/configuration/codemie/project-budget-management',
               ],
             },
             {
